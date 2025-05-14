@@ -1,0 +1,211 @@
+DROP TABLE IF EXISTS HasGenre;
+DROP TABLE IF EXISTS Publishes;
+DROP TABLE IF EXISTS HasGameTag;
+DROP TABLE IF EXISTS InSeries;
+DROP TABLE IF EXISTS NominatedFor;
+DROP TABLE IF EXISTS SupportedController;
+DROP TABLE IF EXISTS OnPlatform;
+DROP TABLE IF EXISTS Achievement;
+DROP TABLE IF EXISTS OwnsGame;
+DROP TABLE IF EXISTS InCatalog;
+DROP TABLE IF EXISTS Catalog;
+DROP TABLE IF EXISTS Friends;
+DROP TABLE IF EXISTS Follows;
+DROP TABLE IF EXISTS Sells;
+DROP TABLE IF EXISTS Supports;
+DROP TABLE IF EXISTS OwnsPlatform;
+DROP TABLE IF EXISTS Series;
+DROP TABLE IF EXISTS Award;
+DROP TABLE IF EXISTS Platform;
+DROP TABLE IF EXISTS Store;
+DROP TABLE IF EXISTS Publisher;
+DROP TABLE IF EXISTS Game;
+DROP TABLE IF EXISTS UserGamer;
+
+
+CREATE TABLE UserGamer (
+  user_id SERIAL NOT NULL,
+  name varchar(100) default NULL,
+  description varchar(500) default NULL,
+  PRIMARY KEY  (user_id)
+);
+
+CREATE TABLE Game (
+  game_id SERIAL NOT NULL,
+  name varchar(100) NOT NULL,
+  description varchar(500) default NULL,
+  release_date date default '2000-01-01 00:00:00',
+  PRIMARY KEY (game_id)
+);
+
+CREATE TABLE Publisher (
+  pub_id SERIAL NOT NULL,
+  name varchar(100) NOT NULL,
+  description varchar(500) default NULL,
+  year_founded int default NULL, 
+  website varchar(200) default NULL,
+  location varchar(100) default NULL,
+  PRIMARY KEY  (pub_id)
+);
+
+CREATE TABLE Store (
+  store_id SERIAL NOT NULL,
+  name varchar(100) NOT NULL,
+  description varchar(500) default NULL,
+  website varchar(200) default NULL,
+  PRIMARY KEY  (store_id)
+);
+
+CREATE TABLE Platform (
+  plat_id SERIAL NOT NULL,
+  name varchar(100) NOT NULL,
+  year int default NULL,
+  PRIMARY KEY  (plat_id)
+);
+
+CREATE TABLE Award (
+  award_id SERIAL NOT NULL,
+  name varchar(100) NOT NULL,
+  description varchar(500) default NULL,
+  PRIMARY KEY (award_id)
+);
+
+CREATE TABLE Series (
+  series_id SERIAL NOT NULL,
+  name varchar(100) NOT NULL,
+  description varchar(500) default NULL,
+  PRIMARY KEY (series_id)
+);
+
+CREATE TABLE OwnsPlatform (
+  user_id INT NOT NULL,
+  plat_id INT NOT NULL,
+  PRIMARY KEY (user_id, plat_id),
+  FOREIGN KEY (user_id) REFERENCES UserGamer(user_id),
+  FOREIGN KEY (plat_id) REFERENCES Platform(plat_id)
+);
+
+CREATE TABLE Supports (
+  store_id int NOT NULL,
+  plat_id int NOT NULL, 
+  PRIMARY KEY (store_id, plat_id),
+  FOREIGN KEY (store_id) REFERENCES Store(store_id),
+  FOREIGN KEY (plat_id) REFERENCES Platform(plat_id)
+);
+
+CREATE TABLE Sells (
+  store_id INT NOT NULL,
+  game_id INT NOT NULL,
+  price int, 
+  link varchar(200),
+  PRIMARY KEY (store_id, game_id),
+  FOREIGN KEY (store_id) REFERENCES Store(store_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
+
+CREATE TABLE Follows (
+  user_id INT NOT NULL,
+  pub_id INT NOT NULL,
+  PRIMARY KEY (user_id, pub_id),
+  FOREIGN KEY (user_id) REFERENCES UserGamer(user_id),
+  FOREIGN KEY (pub_id) REFERENCES Publisher(pub_id)
+);
+
+CREATE TABLE Friends (
+  friend_id INT NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY (friend_id, user_id),
+  FOREIGN KEY (user_id) REFERENCES UserGamer(user_id),
+  FOREIGN KEY (friend_id) REFERENCES UserGamer(user_id)
+);
+
+CREATE TABLE Catalog (
+  catalog_id SERIAL NOT NULL,
+  author_user_id INT NOT NULL, 
+  name varchar(100) default NULL,
+  description varchar(500) default NULL,
+  PRIMARY KEY (catalog_id),
+  FOREIGN KEY (author_user_id) REFERENCES UserGamer(user_id)
+);
+
+CREATE TABLE InCatalog (
+  game_id INT NOT NULL,
+  catalog_id INT NOT NULL,
+  PRIMARY KEY (game_id, catalog_id),
+  FOREIGN KEY (catalog_id) REFERENCES Catalog(catalog_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
+
+CREATE TABLE OwnsGame (
+  user_id INT NOT NULL,
+  game_id INT NOT NULL,
+  total_playtime INT default NULL, 
+  rating INT default NULL,
+  PRIMARY KEY (user_id, game_id),
+  FOREIGN KEY (user_id) REFERENCES UserGamer(user_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
+
+CREATE TABLE Achievement (
+  user_id INT NOT NULL,
+  game_id INT NOT NULL,
+  achievement varchar(100) default NULL,
+  PRIMARY KEY (user_id, game_id),
+  FOREIGN KEY (user_id, game_id) REFERENCES OwnsGame(user_id, game_id)
+);
+
+CREATE TABLE OnPlatform (
+  game_id INT NOT NULL,
+  plat_id INT NOT NULL,
+  PRIMARY KEY (game_id, plat_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id),
+  FOREIGN KEY (plat_id) REFERENCES Platform(plat_id)
+);
+
+CREATE TABLE SupportedController (
+  game_id INT NOT NULL,
+  plat_id INT NOT NULL,
+  supported_controller varchar(100) default NULL,
+  PRIMARY KEY (game_id, plat_id, supported_controller),
+  FOREIGN KEY (game_id, plat_id) REFERENCES OnPlatform(game_id, plat_id)
+);
+
+CREATE TABLE NominatedFor (
+  award_id INT NOT NULL,
+  game_id INT NOT NULL,
+  year INT default NULL, 
+  is_winner BOOL default NULL,
+  PRIMARY KEY (award_id, game_id, year),
+  FOREIGN KEY (award_id) REFERENCES Award(award_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
+
+CREATE TABLE InSeries (
+  game_id INT NOT NULL,
+  series_id INT NOT NULL,
+  PRIMARY KEY (game_id, series_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id),
+  FOREIGN KEY (series_id) REFERENCES Series(series_id)
+);
+
+CREATE TABLE HasGameTag (
+  game_id INT NOT NULL,
+  tag varchar(100) default NULL,
+  PRIMARY KEY (game_id, tag),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
+
+CREATE TABLE Publishes (
+  pub_id INT NOT NULL,
+  game_id INT NOT NULL, 
+  PRIMARY KEY (pub_id, game_id),
+  FOREIGN KEY (pub_id) REFERENCES Publisher(pub_id),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
+
+CREATE TABLE HasGenre (
+  game_id INT NOT NULL,
+  genre varchar(100) NOT NULL,
+  PRIMARY KEY (game_id, genre),
+  FOREIGN KEY (game_id) REFERENCES Game(game_id)
+);
