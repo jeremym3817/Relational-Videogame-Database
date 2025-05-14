@@ -1,0 +1,211 @@
+-- UserGamer
+INSERT INTO UserGamer VALUES(1, 'Jeremy', 'Sup guys Im Jeremy :)');
+INSERT INTO UserGamer VALUES(2, 'Aiden');
+INSERT INTO UserGamer VALUES(3, 'Sam', 'Sam Sam sam Sam');
+INSERT INTO UserGamer VALUES(4, 'Mateo', 'MATEOOOOOOOOOOOO');
+
+-- Game
+INSERT INTO Game VALUES (1, 'Mario Kart 8', 'Fun and competitive kart racing game with iconic Nintendo characters.', '2014-05-29');
+INSERT INTO Game VALUES (2, 'The Legend of Zelda: Tears of the Kingdom', 'Open-world Zelda game with the sky and the depths', '05-12-2023');
+INSERT INTO Game VALUES (3, 'Fortnite', 'Popular battle-royale game', '07-21-2017');
+INSERT INTO Game VALUES (4, 'League of Legends', 'Game played by many CS majors', '10-27-2009');
+INSERT INTO Game VALUES (5, 'Valorant', 'Popular free-to-play FPS', '06-02-2020');
+INSERT INTO Game VALUES (6, 'Cyberpunk 2077', 'Open-world, action-adventure RPG set in the dark future of Night City', '12-09-2020');
+INSERT INTO Game VALUES (7, 'The Legend of Zelda: Breath of the Wild', 'Open-world Zelda game with no sky or depths', '03-03-2017');
+
+-- Publisher 
+INSERT INTO Publisher VALUES (1, 'Nintendo', 'Japanese video game company', 1889, 'https://www.nintendo.com', 'Kyoto, Japan');
+INSERT INTO Publisher VALUES (2, 'Riot Games', 'LA-Based small indie game company', 2006, 'https://www.riotgames.com', 'Los Angeles, CA');
+INSERT INTO Publisher VALUES (3, 'Epic Games', 'Makers of Unreal Engine and Fortnite', 1991, 'https://store.epicgames.com', 'Cary, NC');
+INSERT INTO Publisher VALUES (4, 'CD Projekt Red', 'Award-winning creator of story-driven role-playing games', 2002, 'Lodz, Poland');
+INSERT INTO Publisher VALUES (5, 'TheGreenFrog Publishing', 'Makers of all things green', 2004, NULL, 'Hopotopotropolis');
+
+-- Store
+INSERT INTO Store VALUES (1, 'Steam', 'The ultimate online game store for PC', 'https://store.steampowered.com');
+INSERT INTO Store VALUES (2, 'Nintendo eShop', 'Official digital store for Nintendo games', 'https://www.nintendo.com/eshop');
+INSERT INTO Store VALUES (3, 'Epic Games Store', 'Digital store operated by Epic Games', 'https://store.epicgames.com');
+INSERT INTO Store VALUES (4, 'TheGreenFrog Games Store', NULL, NULL);
+INSERT INTO Store VALUES (5, 'Playstation Store', 'Find Amazing Deals On PS5 & PS4 Games', 'https://store.playstation.com');
+INSERT INTO Store VALUES (6, 'Microsoft Store', ' The largest catalog of games and entertainment', 'https://www.xbox.com/en-US/microsoft-store');
+
+-- Platform
+INSERT INTO Platform VALUES (1, 'PC', 1990);
+INSERT INTO Platform VALUES (2, 'PlayStation 5', 2020);
+INSERT INTO Platform VALUES (3, 'PlayStation 4', 2013);
+INSERT INTO Platform VALUES (4, 'Nintendo Switch', 2017);
+INSERT INTO Platform VALUES (5, 'Xbox Series X', 2020);
+
+-- Award
+INSERT INTO Award VALUES (1, 'Game of the Year', 'Awarded for the best game');
+INSERT INTO Award VALUES (2, 'Best Esports Game', 'Awarded to the best esport');
+
+-- Series
+INSERT INTO Series VALUES (1, 'The Mario Series', 'Games starring Mario Jumpman Mario');
+INSERT INTO Series VALUES (2, 'The Legend of Zelda Series', 'Games where Link (and sometimes Zelda) saves the kingdom from Dark King Ganondorf');
+
+-- OwnsPlatform
+INSERT INTO OwnsPlatform VALUES (1, 1);
+INSERT INTO OwnsPlatform VALUES (1, 2);
+INSERT INTO OwnsPlatform VALUES (1, 4);
+INSERT INTO OwnsPlatform VALUES (2, 1);
+INSERT INTO OwnsPlatform VALUES (2, 4);
+INSERT INTO OwnsPlatform VALUES (2, 5);
+INSERT INTO OwnsPlatform VALUES (3, 1);
+INSERT INTO OwnsPlatform VALUES (3, 4);
+INSERT INTO OwnsPlatform VALUES (4, 1);
+INSERT INTO OwnsPlatform VALUES (4, 5);
+
+-- Supports
+INSERT INTO Supports VALUES (1, 1);
+INSERT INTO Supports VALUES (2, 4);
+INSERT INTO Supports VALUES (5, 2);
+INSERT INTO Supports VALUES (5, 3);
+INSERT INTO Supports VALUES (6, 5);
+
+-- Sells
+INSERT INTO Sells VALUES (3, 3, 0, 'store.epicgames.com/fortnite');
+INSERT INTO Sells VALUES (2, 1, 60, 'nintendo.com/store/mario-kart-8');
+INSERT INTO Sells VALUES (2, 3, 0, 'nintendo.com/store/fortnite');
+INSERT INTO Sells VALUES (2, 2, 70, 'nintendo.com/store/tears-of-the-kingdom');
+INSERT INTO Sells VALUES (2, 7, 60, 'nintendo.com/store/breath-of-the-wild');
+INSERT INTO Sells VALUES (1, 5, 0, 'store.steampowered.com/app/Valorant');
+INSERT INTO Sells VALUES (5, 3, 0, 'store.playstation.com/app/fortnite');
+INSERT INTO Sells VALUES (1, 6, 60, 'store.playstation.com/app/Cyberpunk_2077');
+INSERT INTO Sells VALUES (6, 6, 59, 'xbox.com/en-us/games/store/cyberpunk-2077');
+
+-- Follows 
+INSERT INTO Follows VALUES (1, 2);
+INSERT INTO Follows VALUES (1, 3);
+INSERT INTO Follows VALUES (2, 1);
+INSERT INTO Follows VALUES (2, 4);
+INSERT INTO Follows VALUES (3, 1);
+INSERT INTO Follows VALUES (4, 2);
+
+-- Friends 
+INSERT INTO Friends VALUES (1, 2);
+INSERT INTO Friends VALUES (1, 3);
+INSERT INTO Friends VALUES (2, 1);
+INSERT INTO Friends VALUES (2, 4);
+INSERT INTO Friends VALUES (3, 1);
+INSERT INTO Friends VALUES (4, 2);
+
+-- Catalog
+INSERT INTO Catalog VALUES (1, 1, 'Birthday list', 'Please buy these for me thanks');
+INSERT INTO Catalog VALUES (2, 1, 'My favorite games', NULL);
+INSERT INTO Catalog VALUES (3, 2, 'My least favorite games', 'Why are these so terrible');
+INSERT INTO Catalog VALUES (4, 2, 'Games my dog likes', 'He wags his tail every time I open one of these up');
+INSERT INTO Catalog VALUES (5, 4, 'Games I made', 'I promise I created all of these games');
+
+-- InCatalog
+INSERT INTO InCatalog VALUES (1, 1);
+INSERT INTO InCatalog VALUES (1, 2);
+INSERT INTO InCatalog VALUES (1, 3);
+INSERT INTO InCatalog VALUES (1, 4);
+INSERT INTO InCatalog VALUES (3, 1);
+INSERT INTO InCatalog VALUES (3, 3);
+INSERT INTO InCatalog VALUES (4, 2);
+INSERT INTO InCatalog VALUES (5, 2);
+INSERT INTO InCatalog VALUES (5, 3);
+
+-- OwnsGame
+INSERT INTO OwnsGame VALUES (1, 1, 50, 7);
+INSERT INTO OwnsGame VALUES (1, 3, 180, 6);
+INSERT INTO OwnsGame VALUES (1, 7, 52, 10);
+INSERT INTO OwnsGame VALUES (2, 1, 100, 9);
+INSERT INTO OwnsGame VALUES (2, 3, NULL, 7);
+INSERT INTO OwnsGame VALUES (2, 4, 500, 10);
+INSERT INTO OwnsGame VALUES (2, 5, 10, 6);
+INSERT INTO OwnsGame VALUES (2, 7, 80, 8);
+INSERT INTO OwnsGame VALUES (3, 1, 80, 8);
+INSERT INTO OwnsGame VALUES (3, 2, 80, 9);
+INSERT INTO OwnsGame VALUES (3, 7, 390, 10);
+INSERT INTO OwnsGame VALUES (4, 3, 200, 8);
+INSERT INTO OwnsGame VALUES (4, 5, 50, 7);
+INSERT INTO OwnsGame VALUES (4, 6, 20, 7);
+
+
+-- Achievement
+INSERT INTO Achievement VALUES (1, 1, 'Open the game');
+INSERT INTO Achievement VALUES (2, 1, 'Nice Drift!');
+INSERT INTO Achievement VALUES (3, 2, '5000 hours! (take a shower)');
+INSERT INTO Achievement VALUES (4, 5, 'Crank 90s');
+
+-- OnPlatform
+INSERT INTO OnPlatform VALUES (1, 4);
+INSERT INTO OnPlatform VALUES (2, 4);
+INSERT INTO OnPlatform VALUES (3, 1);
+INSERT INTO OnPlatform VALUES (3, 2);
+INSERT INTO OnPlatform VALUES (3, 3);
+INSERT INTO OnPlatform VALUES (3, 4);
+INSERT INTO OnPlatform VALUES (3, 5);
+INSERT INTO OnPlatform VALUES (4, 1);
+INSERT INTO OnPlatform VALUES (5, 2);
+INSERT INTO OnPlatform VALUES (5, 5);
+INSERT INTO OnPlatform VALUES (6, 1);
+INSERT INTO OnPlatform VALUES (6, 2);
+INSERT INTO OnPlatform VALUES (6, 3);
+INSERT INTO OnPlatform VALUES (6, 4);
+INSERT INTO OnPlatform VALUES (7, 4);
+
+
+-- SupportedController
+INSERT INTO SupportedController VALUES (1, 4, 'JoyCon');
+INSERT INTO SupportedController VALUES (1, 4, 'Pro Controller');
+INSERT INTO SupportedController VALUES (2, 4, 'JoyCon');
+INSERT INTO SupportedController VALUES (2, 4, 'Pro Controller');
+INSERT INTO SupportedController VALUES (3, 1, 'Keyboard & mouse');
+INSERT INTO SupportedController VALUES (3, 2, 'DualSense controller');
+INSERT INTO SupportedController VALUES (3, 3, 'DualShock 4');
+INSERT INTO SupportedController VALUES (3, 4, 'JoyCon');
+INSERT INTO SupportedController VALUES (3, 4, 'Pro Controller');
+INSERT INTO SupportedController VALUES (3, 5, 'Xbox Wireless Controller');
+INSERT INTO SupportedController VALUES (4, 1, 'Keyboard & mouse');
+INSERT INTO SupportedController VALUES (5, 2, 'DualSense controller');
+INSERT INTO SupportedController VALUES (5, 5, 'Xbox Wireless Controller');
+INSERT INTO SupportedController VALUES (6, 1, 'Keyboard & mouse');
+INSERT INTO SupportedController VALUES (6, 2, 'DualSense controller');
+INSERT INTO SupportedController VALUES (6, 3, 'DualShock 4');
+INSERT INTO SupportedController VALUES (6, 4, 'JoyCon');
+INSERT INTO SupportedController VALUES (6, 4, 'Pro Controller');
+INSERT INTO SupportedController VALUES (7, 4, 'JoyCon');
+INSERT INTO SupportedController VALUES (7, 4, 'Pro Controller');
+
+-- NominatedFor
+INSERT INTO NominatedFor VALUES (2, 4, 2024, false);
+INSERT INTO NominatedFor VALUES (2, 5, 2024, true);
+INSERT INTO NominatedFor VALUES (1, 2, 2017, true);
+INSERT INTO NominatedFor VALUES (2, 4, 2021, true);
+
+-- InSeries
+INSERT INTO InSeries VALUES (1, 1);
+INSERT INTO InSeries VALUES (2, 2);
+INSERT INTO InSeries VALUES (7, 2);
+
+-- HasGameTag
+INSERT INTO HasGameTag VALUES (1, 'great for plumbers');
+INSERT INTO HasGameTag VALUES (2, 'open world');
+INSERT INTO HasGameTag VALUES (2, 'building');
+INSERT INTO HasGameTag VALUES (3, 'building');
+INSERT INTO HasGameTag VALUES (4, 'multiplayer');
+INSERT INTO HasGameTag VALUES (5, 'hero');
+INSERT INTO HasGameTag VALUES (5, 'multiplayer');
+INSERT INTO HasGameTag VALUES (7, 'open world');
+
+-- Publishes
+INSERT INTO Publishes VALUES(1, 1);
+INSERT INTO Publishes VALUES(1, 2);
+INSERT INTO Publishes VALUES(3, 3);
+INSERT INTO Publishes VALUES(2, 4);
+INSERT INTO Publishes VALUES(2, 5);
+INSERT INTO Publishes VALUES(4, 6);
+INSERT INTO Publishes VALUES(1, 7);    
+
+-- HasGenre
+INSERT INTO HasGenre VALUES (1, 'platformer');
+INSERT INTO HasGenre VALUES (2, 'action-adventure');
+INSERT INTO HasGenre VALUES (3, 'FPS');
+INSERT INTO HasGenre VALUES (4, 'strategy');
+INSERT INTO HasGenre VALUES (4, 'MOBA');
+INSERT INTO HasGenre VALUES (5, 'FPS');
+INSERT INTO HasGenre VALUES (6, 'FPS');
+INSERT INTO HasGenre VALUES (7, 'action-adventure');
