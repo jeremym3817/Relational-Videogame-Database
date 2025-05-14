@@ -1,0 +1,88 @@
+-- Left outer join query: Aiden wants to know how many hours all of his friends have played Mario Kart 8:
+
+SELECT 
+    u.name AS friend_name, 
+    og.total_playtime AS playtime_hours
+FROM UserGamer
+JOIN Friends f 
+    ON UserGamer.user_id = f.user_id
+JOIN UserGamer u 
+    ON f.friend_id = u.user_id
+LEFT JOIN OwnsGame og 
+    ON f.friend_id = og.user_id
+    WHERE UserGamer.name = 'Aiden' AND og.game_id = (
+      SELECT game_id FROM Game WHERE name = 'Mario Kart 8'
+    )
+ORDER BY 
+    og.total_playtime ASC;
+
+-- Witness query: Nintendo wants to know, “which of our games have the most people purchased?”
+
+WITH X AS (
+  SELECT Game.game_id, Game.name, count(*) num_owners
+  FROM UserGamer, OwnsGame, Game, Publishes, Publisher
+  WHERE UserGamer.user_id = OwnsGame.user_id
+    AND OwnsGame.game_id = Game.game_id
+    AND Game.game_id = Publishes.game_id
+    AND Publishes.pub_id = Publisher.pub_id
+    AND Publisher.name = 'Nintendo'
+  GROUP BY Game.game_id, Game.name
+)
+SELECT *
+FROM X
+WHERE num_owners = (
+  SELECT max(num_owners)
+  FROM X
+)
+ORDER BY game_id ASC
+
+-- Derived Attribute: Mateo is writing derived attribute for Level user
+
+SELECT 
+    ug.user_id,
+    ug.name,
+    ug.description,
+    SUM(og.total_playtime) AS total_playtime,
+    CASE
+        WHEN SUM(og.total_playtime) < 100 THEN 1
+        WHEN SUM(og.total_playtime) < 500 THEN 2
+        WHEN SUM(og.total_playtime) < 1000 THEN 3
+        ELSE 4
+    END AS level
+FROM 
+    UserGamer ug
+JOIN 
+    OwnsGame og ON ug.user_id = og.user_id
+GROUP BY 
+    ug.user_id, ug.name, ug.description;
+
+-- Aggregate with HAVING Clause: What games are available on more than one store (multistore)?
+SELECT G.game_id, G.name, count(St.store_id) AS num_stores
+FROM Store St JOIN Sells Se ON St.store_id = Se.store_id
+		   JOIN Game G ON Se.game_id = G.game_id
+GROUP BY G.game_id, G.name
+HAVING count(St.store_id) > 1
+ORDER BY count(St.store_id) DESC;
+
+
+-- User 1 (Jeremy) wants to know all the games on his birthday list
+
+SELECT Game.name
+FROM UserGamer, Catalog, InCatalog, Game
+WHERE Catalog.author_user_id = UserGamer.user_id
+  AND InCatalog.catalog_id = Catalog.catalog_id
+  AND InCatalog.game_id = Game.game_id
+  AND UserGamer.user_id = 1
+  AND Catalog.name = 'Birthday list';
+
+-- Maintenance Updates: 
+
+-- insert games that have been added to new stores 
+INSERT INTO Sells VALUES (6, 3, 0,  'xbox.com/en-us/games/store/fortnite');
+INSERT INTO Sells VALUES (3, 6, 60, 'store.epicgames.com/cyberpunk-2077');
+
+-- adding new store for Valorant, removing from steam  
+INSERT INTO Store VALUES (7, 'Riot Store', 'Platform that installs Valorant on your computer', 'https://playvalorant.com/en-us/');
+INSERT INTO Supports VALUES (7, 1);
+INSERT INTO Sells VALUES (7, 5, 0, 'https://playvalorant.com/en-us/');
+DELETE FROM Sells WHERE link='store.steampowered.com/app/Valorant';
